@@ -20,7 +20,7 @@ A shopper logs into the app. The web app does not recognize their address so the
 3. Run ganache-cli in terminal
 4. Open another terminal, navigate to root directory of the project and run 'truffle compile' and 'truffle migrate'
 5. To test run 'truffle test'
-6. To run UI run, take mnemonic seed phrase and create account in meta mask, and run 'npm run dev' in terminal
+6. To run UI run, take mnemonic seed phrase and create account in meta mask (running on localhost:8545), and run 'npm run dev' in terminal
 
 ## Project Requirements
   - Truffle project
@@ -33,4 +33,4 @@ A shopper logs into the app. The web app does not recognize their address so the
 
 ## Disclaimer 
 - UI attempted but is not functional with application
-- don't use git push -f 
+- don't use git push -f
