@@ -23,13 +23,13 @@ A shopper logs into the app. The web app does not recognize their address so the
 6. To run UI run, take mnemonic seed phrase and create account in meta mask, and run 'npm run dev' in terminal
 
 ## Project Requirements
-  -Truffle project
-  -Smart contract commented by specs
-  -At least 5 passing tests with explanations
-  -Development to serve front end**
-  -design_patterns.md
-  -avoid_common attacks.md
-  -implement a library - used openzeppelin (SafeMath, Ownable, Destructible)
+  - Truffle project
+  - Smart contract commented by specs
+  - At least 5 passing tests with explanations
+  - Development to serve front end**
+  - design_patterns.md
+  - avoid_common attacks.md
+  - implement a library - used openzeppelin (SafeMath, Ownable, Destructible)
 
 ## Disclaimer 
 - UI attempted but is not functional with application
