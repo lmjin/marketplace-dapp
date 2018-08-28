@@ -33,4 +33,5 @@ A shopper logs into the app. The web app does not recognize their address so the
 
 ## Disclaimer 
 - UI attempted but is not functional with application
+ - please send me an email if you can explain why the code isn't working (i'm very new to front end development)  
 - don't use git push -f
