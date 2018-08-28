@@ -1,7 +1,6 @@
 App = {
   web3Provider: null,
   contracts: {},
-  account: '0x0',
 
   init: function() {
     return App.initWeb3();
@@ -38,12 +37,14 @@ App = {
   initContract: function() {
     $.getJSON("Marketplace.json", function(data) {
       // Instantiate a new truffle contract from the artifact
-      var MarketplaceArtifcat = data;
-      App.contracts.Marketplace = TruffleContract(Marketplace);
+      var MarketplaceArtifact = data;
+      App.contracts.Marketplace = TruffleContract(MarketplaceArtifact);
       // Connect provider to interact with contract
       App.contracts.Marketplace.setProvider(App.web3Provider);
 
-      return App.addStoreOwner();
+      App.addStoreOwner();
+      App.addStorefront();
+      return App.render();
     });
   },
 
@@ -52,22 +53,41 @@ App = {
     var marketplaceInstance;
 
     $('#addStoreOwner').submit(function( event ) {
-      address = $("input#adminAddress").val();
-      console.log(address);
-      web3.eth.getAccounts(function(error, accounts) {
-        if (error) {
-          console.log(error);
+      address = $("input#storeOwnerAddress").val();
+      web3.eth.getCoinbase(function(error, account) {
+        if (error === null) {
+          App.account = account
         }
 
-        var account = accounts[0];
         App.contracts.Marketplace.deployed().then(function(instance) {
           MarketplaceInstance = instance;
-          console.log(addr)
           return MarketplaceInstance.addStoreOwner(address, {from: account});
         });
+        App.render()
       });
     });
   },
+
+  createStorefront: function() {
+    let storeName;
+    var marketplaceInstance;
+
+    $('#addStorefront').submit(function( event ) {
+      storeName = $("input#storefrontName").val();
+      web3.eth.getCoinbase(function(error, account) {
+        if (error === null) {
+          App.account = account;
+        }
+        var account = accounts[0];
+        App.contracts.Stores.deployed().then(function(instance) {
+          marketplaceInstance = instance;
+          return MarketplaceInstance.addStorefront(storeName, {from: account});
+        });
+      });
+      App.render()
+    });
+  },
+
 render: function() {
   var marketplaceInstance;
   var loader = $("#loader");
@@ -82,8 +102,6 @@ render: function() {
       App.account = account;
       $("#accountAddress").html("Your Account: " + account);
     }
-
-
   });
 
   // Load contract data
@@ -102,7 +120,7 @@ render: function() {
         var balance = storefrontByIDs[3];
 
         // Render candidate Result
-        var Template = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + owner + "</td><td>" + balance + "</td></tr>"
+        var storefrontTemplate = "<tr><th>" + id + "</th><td>" + name + "</td><td>" + owner + "</td><td>" + balance + "</td></tr>"
         storeResults.append(storefrontTemplate);
 
       });
